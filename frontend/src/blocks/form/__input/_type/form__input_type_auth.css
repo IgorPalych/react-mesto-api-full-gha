@@ -1,0 +1,8 @@
+.form__input_type_auth {
+  border-bottom: 2px solid #ccc;
+  color: #fff;
+}
+
+.form__input_type_auth::placeholder {
+  color: #ccc;
+}

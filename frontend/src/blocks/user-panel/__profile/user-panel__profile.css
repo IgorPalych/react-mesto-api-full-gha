@@ -1,0 +1,12 @@
+.user-panel__profile {
+  display: flex;
+  gap: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .user-panel__profile {
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+  }
+}

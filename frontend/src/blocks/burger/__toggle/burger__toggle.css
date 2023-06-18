@@ -1,0 +1,27 @@
+/* скрываем чекбокс */
+#burger__toggle {
+  position: absolute;
+  top: -100px;
+  opacity: 0;
+}
+
+
+@media screen and (max-width: 768px) {
+  #burger__toggle:checked~.burger__btn>span {
+    transform: rotate(45deg);
+  }
+
+  #burger__toggle:checked~.burger__btn>span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+
+  #burger__toggle:checked~.burger__btn>span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+
+  #burger__toggle:checked~.menu {
+    display: flex;
+  }
+}

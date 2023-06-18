@@ -1,0 +1,24 @@
+.user-info__about {
+  grid-column: 1;
+  grid-row: 2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .user-info__about {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .user-info__about {
+    text-align: center;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,18 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 24px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    font-size: 14px;
+  }
+}
