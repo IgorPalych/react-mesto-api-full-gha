@@ -20,7 +20,7 @@ class Api {
       .then(res => this._checkResponse(res));
   }
 
-  setUserInfo(data) {
+  setUserProfile(data) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -77,7 +77,7 @@ class Api {
     }
   }
 
-  getUserInfo() {
+  getUserData() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })

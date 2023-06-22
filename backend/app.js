@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const router = require('./routes');
 
 const { validateSignUp, validateSignIn } = require('./middlewares/validate');
@@ -11,7 +13,8 @@ const { login, createUser } = require('./controllers/users');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/handleError');
 
-const { PORT = 3000 } = process.env;
+/* const { PORT = 3000 } = process.env; */
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -24,6 +27,8 @@ const limiter = rateLimit({
 
 app.use(limiter);
 app.use(helmet());
+
+app.use(cors());
 
 app.use(requestLogger);
 

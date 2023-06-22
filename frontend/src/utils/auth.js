@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+/* export const BASE_URL = 'https://auth.nomoreparties.co'; */
+export const BASE_URL = 'http://localhost:3001';
 
 function makeRequest(url, method, body, token) {
   const options = {
@@ -45,7 +46,7 @@ export const authorize = (email, password) => {
   );
 }
 
-export const getUserData = (token) => {
+export const checkToken = (token) => {
   return makeRequest(
     "/users/me",
     "GET",

@@ -53,26 +53,26 @@ function App() {
       return;
     }
     auth
-      .getUserData(token)
+      .checkToken(token)
       .then((res) => {
-        navigate("/");
         setIsLoggedIn(true);
         setUserData(res.data);
+        navigate("/");
       })
       .catch((err) => { console.log(err) })
   }, [token, navigate]);
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      api.getUserInfo()
-        .then(data => {
-          setCurrentUser(data);
+      api.getUserData()
+        .then(res => {
+          setCurrentUser(res.data);
         })
         .catch(err => { console.log(err) });
 
       api.getCardList()
-        .then(data => {
-          setCards(data);
+        .then(res => {
+          setCards(res.data);
         })
         .catch(err => { console.log(err) });
     }
@@ -117,18 +117,18 @@ function App() {
   function logOut() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setToken("")
+    setToken("");
     setUserData({
-      username: "",
+      _id: "",
       email: ""
     });
     navigate("/sign-in");
   }
 
-  function handleUpdateAvatar(data) {
-    api.setUserAvatar(data)
-      .then(newAvatar => {
-        setCurrentUser(newAvatar);
+  function handleUpdateAvatar(avatarData) {
+    api.setUserAvatar(avatarData)
+      .then(res => {
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch(err => { console.log(err) })
@@ -136,10 +136,10 @@ function App() {
     setIsLoad(true);
   }
 
-  function handleUpdateUser(data) {
-    api.setUserInfo(data)
-      .then(newUserInfo => {
-        setCurrentUser(newUserInfo);
+  function handleUpdateProfile(profileData) {
+    api.setUserProfile(profileData)
+      .then(res => {
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch(err => { console.log(err) })
@@ -147,10 +147,10 @@ function App() {
     setIsLoad(true);
   }
 
-  function handleAddPlaceSubmit(data) {
-    api.addPlace(data)
-      .then(newCard => {
-        setCards([newCard, ...cards]);
+  function handleAddPlaceSubmit(newPlaceData) {
+    api.addPlace(newPlaceData)
+      .then(res => {
+        setCards([res.card, ...cards]);
         closeAllPopups();
       })
       .catch(err => { console.log(err) })
@@ -159,20 +159,20 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(item => item === currentUser._id);
 
     api.changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      .then((res) => {
+        setCards((state) => state.map((c) => c._id === card._id ? res : c));
       })
       .catch(err => { console.log(err) });
   }
 
   function handleCardDelete(card) {
     api.deletePlace(card._id)
-      .then((newCard) => {
-        const newCards = cards.filter((c) => c._id === card._id ? "" : newCard);
-        setCards(newCards);
+      .then((res) => {
+        const cardList = cards.filter((c) => c._id === card._id ? "" : res);
+        setCards(cardList);
       })
       .catch(err => { console.log(err) });
   }
@@ -249,7 +249,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
+          onUpdateProfile={handleUpdateProfile}
           isLoad={isLoad}
         />
 

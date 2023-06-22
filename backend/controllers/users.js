@@ -9,8 +9,9 @@ const UserExist = require('../errors/UserExist'); /* 409 */
 const {
   MONGO_DUPLICATE_KEY_ERROR,
   SALT_ROUNDS,
-  SECRET_KEY,
 } = require('../utils/constants');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 // в этих контроллерах использован подход с промисами
 
@@ -46,7 +47,9 @@ const getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      res.send({ data: user });
+      res.send({
+        data: user,
+      });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -143,7 +146,11 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   return UserModel.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
