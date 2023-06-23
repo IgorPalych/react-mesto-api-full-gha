@@ -5,12 +5,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/IgorPalych/react-mesto-api-full-gha.git
 
 ## Ссылки на проект
 
-IP-адрес 84.201.160.204
+IP 84.201.160.204
 
-Frontend mesto.igor-palych.nomoredomains.rocks
+Frontend https://mesto.igor-palych.nomoredomains.rocks
 
 Backend https://api.mesto.igor-palych.nomoredomains.rocks
