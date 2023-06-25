@@ -82,9 +82,10 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        localStorage.setItem('token', res.token);
-        setIsInfoTooltipOpen(true);
-        setToken(res.token);
+        if (res) {
+          setIsInfoTooltipOpen(true);
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);

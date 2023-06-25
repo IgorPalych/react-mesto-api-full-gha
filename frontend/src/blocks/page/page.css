@@ -1,5 +1,6 @@
 .page {
   min-width: 320px;
+  min-height: 10vh;
   background-color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
